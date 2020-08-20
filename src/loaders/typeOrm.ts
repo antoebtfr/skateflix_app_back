@@ -6,9 +6,9 @@ export default async () => {
     await createConnection({
         type: 'mysql',
         host: 'localhost',
-        username: 'root',
-        password: 'Livredepoche18;',
-        database: 'test_Workbench',
+        username: process.env.SQL_user,
+        password: process.env.SQL_pass,
+        database: process.env.SQL_db_sf,
         entities: [
             User,
             Video
