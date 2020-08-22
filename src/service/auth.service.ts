@@ -3,11 +3,11 @@ import { UserRepository } from "../repository /user.repository";
 import { TokenService } from "./token.service";
 import { UserService } from "./user.service";
 import { User } from "../entity/user.entity";
-import { hash } from 'argon2';
+import { hash, verify } from 'argon2';
 import { randomBytes } from "crypto";
 import { createTestAccount, createTransport, getTestMessageUrl } from "nodemailer";
 import { Token } from "../entity/token.entity";
-import { totalmem } from "os";
+import  { sign } from 'jsonwebtoken';
 
 export class AuthService {
     
@@ -56,6 +56,33 @@ export class AuthService {
         await this.userService.activeUserAccount(token.user)
     }
 
+    async signIn(email: string, password: string){
+        const labelError = new Error('Crendentials are incorrects');
+
+        const user = await this.userRepo.findOne({where: { email }, select: ["id", "email", "password", "isActive", "firstname", "surname", "nickname", "age", "country", "region"]})
+        console.log(user);
+
+        if(!user?.isActive){
+            throw new Error("Not active");
+        }
+
+        const isValid = await verify(user.password, password);
+
+        if (!isValid) {
+            throw labelError
+        }
+
+        const secret = "fzifehzifhz";
+        if(!secret) { throw new Error('Pas de secret')};
+        
+        const token = sign(
+            {id : user.id, email: user.email}, secret
+        )
+
+        console.log('La fonction sign in est finie')
+        return { token, user}; 
+    }
+
     private async nodemailer(token: string, user: User) {
         const testAccount = await createTestAccount();
 
@@ -74,7 +101,7 @@ export class AuthService {
             to: user.email,
             subject: 'Activation Link',
             text: 'Hello World',
-            html: `<b> Hello ${user.firstname} <br> Here is your activation link <a href=http:localhost:3000/auth/confirmation/${token}"> Activation Link </a> <b>`
+            html: `<b> Hello ${user.firstname} <br> Here is your activation link <a href="http:localhost:3000/auth/confirmation/${token}"> Activation Link </a> <b>`
         });
 
         console.log('Message send to: %s', user.email);

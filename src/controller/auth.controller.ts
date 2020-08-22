@@ -31,5 +31,13 @@ export const AuthController = (app: Application) => {
         }
     })
 
+    router.get('/signin', async (req: Request, res: Response) => {
+        const userLog = req.body;
+
+        await authService.signIn(userLog.email, userLog.password);
+        res.sendStatus(204)
+        
+    })
+
     app.use('/auth', router)
 }
