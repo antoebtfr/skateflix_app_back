@@ -2,6 +2,7 @@ import express from 'express';
 import loaders from './loaders';
 import { userController } from './controller/user.controller';
 import { VideoController } from './controller/video.controller';
+import { AuthController } from './controller/auth.controller';
 
 
 async function startServer(){
@@ -20,8 +21,9 @@ async function startServer(){
     
     await loaders(app, server);
     
-    await userController(app);
-    await VideoController(app);
+     userController(app);
+     VideoController(app);
+     AuthController(app);
     
 }
 

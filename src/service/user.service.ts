@@ -5,6 +5,11 @@ import { User } from "../entity/user.entity";
 export class UserService {
     protected repo = getCustomRepository(UserRepository);
 
+    async activeUserAccount(user: User){
+        user.isActive = true;
+        this.repo.update(user.id, user);
+    }
+
     get() {
         return this.repo.find();
     }

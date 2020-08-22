@@ -12,8 +12,14 @@ export class User {
     @Column({ type: 'varchar', length: 50, default: ''})
     firstname!:string;
 
+    @Column({ type: 'varchar', length: 50, default: ''})
+    nickname?:string;
+
     @Column({type: 'varchar', length: 100})
     email!:string;
+
+    @Column({type: 'boolean', default: false})
+    isActive!: boolean;
 
     @Column({ type: 'boolean', default: false})
     isPremium!:boolean;

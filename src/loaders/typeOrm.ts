@@ -1,6 +1,7 @@
 import { createConnection } from "typeorm"
 import { User } from "../entity/user.entity"
 import { Video } from "../entity/video.entity"
+import { Token } from "../entity/token.entity";
 
 export default async () => {
     await createConnection({
@@ -11,7 +12,8 @@ export default async () => {
         database: process.env.SQL_db_sf,
         entities: [
             User,
-            Video
+            Video,
+            Token
         ],
         synchronize: true,
         logging: false,
