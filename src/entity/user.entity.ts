@@ -13,10 +13,13 @@ export class User {
     firstname!:string;
 
     @Column({ type: 'varchar', length: 50, default: ''})
-    nickname!:string;
+    nickname?:string;
 
     @Column({type: 'varchar', length: 100})
     email!:string;
+
+    @Column({type: 'boolean', default: false})
+    isActive!: boolean;
 
     @Column({ type: 'boolean', default: false})
     isPremium!:boolean;
