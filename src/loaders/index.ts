@@ -7,5 +7,6 @@ export default  async (app: Application, server: any) => {
     await express(app);
     await typeOrm();
     await socket(server);
+    console.log('All loaders have been inittialized');
 
 }
