@@ -38,7 +38,7 @@ export const VideoController = (app: Application) => {
         }
 
         res.send(await service.post(video));
-        console.log('The sending to the database has been carried out correctly.\nSend of the folling Object :');
+        console.log('The sending to the database has been carried out correctly.\nSend of the following Object :');
         console.log(video);
     })
 
