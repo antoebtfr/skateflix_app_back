@@ -9,7 +9,7 @@ export class VideoService {
         return this.repo.find();
     }
 
-    post(video: Video){
+    post(video: any){
         console.log(video)
         return this.repo.save(video);
     }

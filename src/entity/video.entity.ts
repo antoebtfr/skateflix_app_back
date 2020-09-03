@@ -10,11 +10,13 @@ export class Video {
     @Column({ type: 'varchar', length: 70})
     videoname!: string;
     
-    @Column({type: 'varchar', length: 50})
+    @Column({type: 'varchar', length: 50, default:''})
     category!: string;
 
+    @Column({type: 'int'})
+    userId!: number;
 
-   @ManyToOne(type => User, user => user.id, {nullable: false})
-    user!: User;
+/*    @ManyToOne(type => User, user => user.id, {nullable: false})
+    user!: User; */
     
 }
