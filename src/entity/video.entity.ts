@@ -13,6 +13,9 @@ export class Video {
     @Column({type: 'varchar', length: 50, default:''})
     category!: string;
 
+    @Column({type: 'varchar', length: 150})
+    link!: string; 
+
     @Column({type: 'int'})
     userId!: number;
 

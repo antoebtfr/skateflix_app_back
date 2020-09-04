@@ -1,6 +1,7 @@
 import { Application, Router, Request, Response, NextFunction } from "express";
 import { VideoService } from "../service/video.service";
 import multer from "multer";
+import express from "express";
 
 
 export const VideoController = (app: Application) => {
@@ -49,4 +50,5 @@ export const VideoController = (app: Application) => {
     })
 
     app.use('/video', router)
+    app.use('/uploads', express.static('uploads'));
 }
