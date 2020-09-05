@@ -45,6 +45,8 @@ export class AuthService {
         token.value = tokenString;
         this.tokenService.create(token);
 
+        console.log(user)
+        console.log('\nThe user has been saved!')
         return true
     }
 
