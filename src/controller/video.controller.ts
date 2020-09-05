@@ -21,7 +21,7 @@ export const VideoController = (app: Application) => {
          res.send(await service.get())
     })
 
-    router.post('/:userId/:category/:videoname', upload.single('file'), async (req: Request, res: Response, next: NextFunction) => {
+    router.post('/:userId/:category/:videoname/:location', upload.single('file'), async (req: Request, res: Response, next: NextFunction) => {
         const file = req.file;
         console.log(file);
         if(!file){
@@ -36,6 +36,7 @@ export const VideoController = (app: Application) => {
             link: `uploads/id${req.params.userId}_${file.originalname}`,
             userId: Number(req.params.userId),
             category: req.params.category,
+            location: req.params.location
         }
 
         res.send(await service.post(video));
