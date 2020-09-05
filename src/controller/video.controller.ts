@@ -1,6 +1,7 @@
 import { Application, Router, Request, Response, NextFunction } from "express";
 import { VideoService } from "../service/video.service";
 import multer from "multer";
+import express from "express";
 
 
 export const VideoController = (app: Application) => {
@@ -21,7 +22,7 @@ export const VideoController = (app: Application) => {
          res.send(await service.get())
     })
 
-    router.post('/:userId', upload.single('file'), async (req: Request, res: Response, next: NextFunction) => {
+    router.post('/:userId/:category/:videoname', upload.single('file'), async (req: Request, res: Response, next: NextFunction) => {
         const file = req.file;
         console.log(file);
         if(!file){
@@ -32,13 +33,14 @@ export const VideoController = (app: Application) => {
         console.log('\nFile has been saved in the folder\n')
 
         const video = {
-            videoname: file.originalname,
-            link: `uploads/id${req.params.id}_${file.originalname}`,
-            userId: Number(req.params.userId)
+            videoname: req.params.videoname,
+            link: `uploads/id${req.params.userId}_${file.originalname}`,
+            userId: Number(req.params.userId),
+            category: req.params.category,
         }
 
         res.send(await service.post(video));
-        console.log('The sending to the database has been carried out correctly.\nSend of the following Object :');
+        console.log('The sending to the database has been carried out correctly.\n \nSending of the following Object :');
         console.log(video);
     })
 
@@ -48,4 +50,5 @@ export const VideoController = (app: Application) => {
     })
 
     app.use('/video', router)
+    app.use('/uploads', express.static('uploads'));
 }
