@@ -61,7 +61,7 @@ export class AuthService {
     async signIn(email: string, password: string){
         const labelError = new Error('Crendentials are incorrects');
 
-        const user = await this.userRepo.findOne({where: { email }, select: ["id", "email", "password", "isActive", "firstname", "surname", "nickname", "age", "country", "region"]})
+        const user = await this.userRepo.findOne({where: { email }, select: ["id", "email", "password", "isActive", "firstname", "surname", "nickname", "age", "country", "region", "profilPicture"]})
         console.log(user);
 
         if(!user?.isActive){

@@ -31,12 +31,22 @@ export const AuthController = (app: Application) => {
         }
     })
 
-    router.get('/signin', async (req: Request, res: Response) => {
+    router.post('/signin', async (req: Request, res: Response) => {
         const userLog = req.body;
+        try {
 
-        const token = await (await authService.signIn(userLog.email, userLog.password)).token;
-        console.log(token)
-        res.sendStatus(204)
+            const info = await (await authService.signIn(userLog.email, userLog.password))
+            const token = info.token;
+            const user = info.user;
+
+            console.log('Connection has succeed !\n')
+            console.log(token)
+            console.log(user);
+            res.send(user).status(204);
+        } catch {
+            console.log('Connection failed...')
+            res.sendStatus(500);
+        }
         
         
     })

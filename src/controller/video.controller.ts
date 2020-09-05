@@ -50,5 +50,4 @@ export const VideoController = (app: Application) => {
     })
 
     app.use('/video', router)
-    app.use('/uploads', express.static('uploads'));
 }

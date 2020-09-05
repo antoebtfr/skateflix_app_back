@@ -18,6 +18,9 @@ export class User {
     @Column({type: 'varchar', length: 100})
     email!:string;
 
+    @Column({type: 'varchar', length: 200, default: 'http://localhost:3000/img/default_avatar.png'})
+    profilPicture!: string;
+
     @Column({type: 'boolean', default: false})
     isActive!: boolean;
 
